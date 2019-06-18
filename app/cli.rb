@@ -1,7 +1,9 @@
 
 class CLI
-
+  
   def run
+    @prompt = TTY::Prompt.new
+    
     puts "Welcome to Hydrate Yourself"
     puts "\n
     MAIN MENU
