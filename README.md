@@ -4,6 +4,8 @@ Congratulations, you're at the end of module one! You've worked crazy hard to ge
 
 For your final project, we'll be building a Command Line database application.
 
+## Team: Zach and Jourdan
+
 ## Project Requirements
 
 ### Option One - Data Analytics Project
