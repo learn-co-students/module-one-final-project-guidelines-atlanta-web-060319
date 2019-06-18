@@ -2,4 +2,8 @@ require_relative '../config/environment'
 
 
 
-puts "HELLO WORLD"
+
+Cli.new.run
+
+
+
