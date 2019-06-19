@@ -6,7 +6,6 @@ class CLI
     @prompt = TTY::Prompt.new
     puts "Welcome to Hydrate Yourself"
     response = @prompt.select("What would you like to do?", %w(Login CreateAccount Exit))
-
     case response
       when "Login"
         login
@@ -45,19 +44,24 @@ class CLI
     @third = Goal.find_by(cup: 800)
     @counter = 0
 
+<<<<<<< HEAD
     puts "\n\n 1. How much water do you currently drink?\n\n"
     choices = ["One Cup Daily", "Three Cups Daily", "My Insides Are A Desert"]
+=======
+    puts "1. How much water do you currently drink?"
+    choices = ["One Cup Daily", "Three Cups Daily", "I'm Basically a Mermaid/Man!!"]
+>>>>>>> gihpy
     a = @prompt.select("Select Amount?", choices)
     # binding.pry
     case a
     when choices[0]
-      puts "\n\n Studies show need more water \n\n"
+      puts "\n\nDude Seriously!!\n\n"
       @counter += 1
     when choices[1]
-      puts "\n\n Studies show thats okay but it could be better \n\n"
+      puts "\n\nThat's Ok, but Maybe You Could Do Better\n\n"
       @counter += 2
     when choices[2]
-      puts "\n\n Studying your dying \n\n"
+      puts "\n\nYou Rock!!!\n\n"
       @counter += 3
     end
 
