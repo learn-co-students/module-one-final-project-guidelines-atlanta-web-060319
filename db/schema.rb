@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20190618162829) do
   create_table "reviews", force: :cascade do |t|
     t.string  "content"
     t.integer "rating"
+    t.integer "user_id"
+    t.integer "movie_id"
   end
 
   create_table "users", force: :cascade do |t|
