@@ -14,8 +14,10 @@ class CLI
       when "Exit"
         puts "\n\nSee Ya!\n\n"
         exit
+      else
+        exit
       end
-      
+
     main_menu
   end
   `reset`
@@ -34,6 +36,8 @@ class CLI
         update_profile
       when choices[4]
         delete_account
+      else
+        exit
     end
 
   end
@@ -45,20 +49,22 @@ class CLI
     @third = Goal.find_by(cup: 800)
     @counter = 0
 
-    puts "1. How much water do you currently drink?"
+    puts "\n\n1. How much water do you currently drink?\n\n"
     choices = ["One Cup Daily", "Three Cups Daily", "I'm Basically a Mermaid/Man!!"]
     a = @prompt.select("Select Amount?", choices)
     # binding.pry
     case a
-    when choices[0]
-      puts "\n\nDude Seriously!!\n\n"
-      @counter += 1
-    when choices[1]
-      puts "\n\nThat's Ok, but Maybe You Could Do Better\n\n"
-      @counter += 2
-    when choices[2]
-      puts "\n\nYou Rock!!!\n\n"
-      @counter += 3
+      when choices[0]
+        puts "\n\nDude Seriously!!\n\n"
+        @counter += 1
+      when choices[1]
+        puts "\n\nThat's Ok, but Maybe You Could Do Better\n\n"
+        @counter += 2
+      when choices[2]
+        puts "\n\nYou Rock!!!\n\n"
+        @counter += 3
+      else
+        puts "ERROR FIX ME..IM IN TAKE QUIZ"
     end
 
     puts "\n\n 2. How much water would you like to be drinking a day?\n\n"
@@ -66,12 +72,14 @@ class CLI
     b = @prompt.select("Select Amount?", choices_two)
 
     case b
-    when choices_two[0]
-      @counter += 1
-    when choices_two[1]
-      @counter += 2
-    when choices_two[2]
-      @counter += 3
+      when choices_two[0]
+        @counter += 1
+      when choices_two[1]
+        @counter += 2
+      when choices_two[2]
+        @counter += 3
+      else
+        puts "ERROR FIX ME..IM IN TAKE QUIZ"
     end
 
     puts "\n\n 3. What do you wish to gain from Hydrate Your Life?\n\n"
@@ -79,14 +87,14 @@ class CLI
     c = @prompt.select("Select Amount?", choices_three)
 
     case c
-    when choices_three[0]
-      @counter += 1
-    when choices_three[1]
-      @counter += 2
-    when choices_three[2]
-      @counter += 3
-      # puts "Your Goal is set too #{water.cup} in a month"
-      # water = WaterIntake.create(user_id: @user.id, goal_id: @first.id, tracker: 0)
+      when choices_three[0]
+        @counter += 1
+      when choices_three[1]
+        @counter += 2
+      when choices_three[2]
+        @counter += 3
+      else
+        puts "ERROR FIX ME..IM IN TAKE QUIZ"
     end
 
     if @counter <= 4
@@ -95,7 +103,7 @@ class CLI
     elsif @counter <= 6
       puts "\n\nYour Goal is to reach 600cups\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @second.id, tracker: 0)
-  else @counter <= 10
+    else @counter <= 10
       puts "\n\nYour goal is to reach 800cups\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @third.id, tracker: 0)
     end
@@ -106,10 +114,11 @@ class CLI
     puts "Please enter your username!"
     input = gets.chomp
    if User.find_by(name: input)
-     puts "\n\nWelcome Back!!! #{input}\n\n"
+     @user = User.find_by(name: input)
+     puts "Welcome back #{input}"
    else
      did_not_find_you
-      end
+    end
   end
   sleep 3
 
@@ -120,12 +129,12 @@ class CLI
 
 
   def create_account
-    puts "\nMake your profile...\n"
+      puts "\nMake your profile...\n"
 
       sleep 1
       puts "Enter your name!\n\n"
       name = gets.chomp
-      @user = User.create(name: name)
+      @user = User.create(name: name.downcase)
       `reset`
       sleep 1
 
@@ -150,53 +159,56 @@ class CLI
 
   def input_water_intake
 
-    puts "How many cups of water have you had today?"
+    puts "\n\nHow many cups of water have you had today?\n\n"
 
-    choices = ["One Cup", "Two Cups", "Three Cups", "Four Cups", "Five Cups", "Six Cups",
-    "Seven Cups", "Eight Cups"]
-    cups = @prompt.select("Select Amount?", choices)
-
+    choices = ["One Cup", "Two Cups", "Three Cups", "Four Cups", "Five Cups", "Six Cups", "Seven Cups", "Eight Cups"]
+    cups = @prompt.select("Select Your Amount?", choices)
     case cups
     when choices[0]
-      water =  WaterIntake.find_by(user_id: @user.id)
-      track = water.tracker += 1
-      water.save
-      puts " Awee You Only Increased Your Water Intake By #{track}"
-    when choices[1]
-      water =  WaterIntake.find_by(user_id: @user.id)
-      track = water.tracker += 2
-      water.save
-      puts " You have increased Your Water Intake By #{track}"
-    when choices[2]
-      water =  WaterIntake.find_by(user_id: @user.id)
-      track = water.tracker += 3
-      water.save
-      puts " You have increased Your Water Intake By #{track}"
-    when choices[3]
-      water =  WaterIntake.find_by(user_id: @user.id)
-      track = water.tracker += 4
-      water.save
-      puts " You have increased Your Water Intake By #{track}"
-    when choices[4]
-      water =  WaterIntake.find_by(user_id: @user.id)
-      track = water.tracker += 5
-      water.save
-      puts " You have increased Your Water Intake By #{track}"
-    when choices[5]
-      water =  WaterIntake.find_by(user_id: @user.id)
-      track = water.tracker += 6
-      water.save
-      puts " You have increased Your Water Intake By #{track}"
-    when choices[6]
-      water =  WaterIntake.find_by(user_id: @user.id)
-      track = water.tracker += 7
-      water.save
-      puts " You have increased Your Water Intake By #{track}"
-    when choices[7]
-      water =  WaterIntake.find_by(user_id: @user.id)
-      track = water.tracker += 8
-      water.save
-      puts " You have increased Your Water Intake By #{track}"
+        water = WaterIntake.find_by(user_id: @user.id)
+        track = water.tracker += 1
+        water.save
+        puts " Awee You Only Increased Your Water Intake By #{track}!"
+        puts "\nDid You Know:
+                \nThere are a lot of anecdotal reports about how water can
+                \nhelp hydrate the skin and reduce acne.\n\n"
+      when choices[1]
+        water =  WaterIntake.find_by(user_id: @user.id)
+        track = water.tracker += 2
+        water.save
+        puts " You have increased Your Water Intake By #{track}"
+      when choices[2]
+        water =  WaterIntake.find_by(user_id: @user.id)
+        track = water.tracker += 3
+        water.save
+        puts " You have increased Your Water Intake By #{track}"
+      when choices[3]
+        water =  WaterIntake.find_by(user_id: @user.id)
+        track = water.tracker += 4
+        water.save
+        puts " You have increased Your Water Intake By #{track}"
+      when choices[4]
+        water =  WaterIntake.find_by(user_id: @user.id)
+        track = water.tracker += 5
+        water.save
+        puts " You have increased Your Water Intake By #{track}"
+      when choices[5]
+        water =  WaterIntake.find_by(user_id: @user.id)
+        track = water.tracker += 6
+        water.save
+        puts " You have increased Your Water Intake By #{track}"
+      when choices[6]
+        water =  WaterIntake.find_by(user_id: @user.id)
+        track = water.tracker += 7
+        water.save
+        puts " You have increased Your Water Intake By #{track}"
+      when choices[7]
+        water =  WaterIntake.find_by(user_id: @user.id)
+        track = water.tracker += 8
+        water.save
+        puts " You have increased Your Water Intake By #{track}"
+      else
+        puts "ERROR FIX ME..IM IN WATER INTAKE"
     end
     main_menu
   end
@@ -220,24 +232,26 @@ class CLI
     c = @prompt.select("Select Amount?", options)
 
     case c
-    when  options[0]
-      puts "What is your new name?"
-      name =  gets.chomp
-      @user.name = name
-      @user.save
-      puts "Ok, got it! Hi #{name.capitalize}!!!"
-    when  options[1]
-      puts "What is your new Spirit Animal"
-      animal = gets.chomp
-      @user.spirit_animal = animal
-      @user.save
-      puts " You will now be Known as #{animal.capitalize}"
-    when  options[2]
-      puts "Was it Your Birthday? What is Your New Age?"
-      age = gets.chomp
-      @user.age = age
-      @user.save
-      puts "Happy Belated Birthday, You are now #{age} the brave!"
+      when  options[0]
+        puts "What is your new name?"
+        name =  gets.chomp
+        @user.name = name
+        @user.save
+        puts "Ok, got it! Hi #{name.capitalize}!!!"
+      when  options[1]
+        puts "What is your new Spirit Animal"
+        animal = gets.chomp
+        @user.spirit_animal = animal
+        @user.save
+        puts " You will now be Known as #{animal.capitalize}"
+      when  options[2]
+        puts "Was it Your Birthday? What is Your New Age?"
+        age = gets.chomp
+        @user.age = age
+        @user.save
+        puts "Happy Belated Birthday, You are now #{age} the brave!"
+      else
+        puts "ERROR FIX ME..UPDATE PROFILE"
     end
     main_menu
   end
@@ -250,6 +264,8 @@ class CLI
       puts "BYE BYE! :,("
     when "no"
       puts "Thank you for staying with us, Keep Drinking Water!!!"
+    else
+      puts "ERROR FIX ME..IM IN DELETE ACCOUNT"
     end
   end
 end
