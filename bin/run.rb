@@ -1,5 +1,23 @@
 require_relative '../config/environment'
+require 'rest-client'
+require 'JSON'
+require 'pry'
 
 
 
-puts "HELLO WORLD"
+
+CLI.new.run
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
