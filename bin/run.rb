@@ -1,5 +1,12 @@
 require_relative '../config/environment'
+ActiveRecord::Base.logger = nil
 
+#-----------START---------
 
+#---------RUN-CLI---------
 
-puts "HELLO WORLD"
+CLI.new.run  
+
+#-------------------------
+
+# binding.pry
