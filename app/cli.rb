@@ -103,15 +103,19 @@ class CLI
 
   def login
     puts "Please enter your username!"
-    name = gets.chomp
-    @user = User.find_by(name: name.downcase)
-    if @user.name != name.downcase
-      puts "We havent met you yet. Please Create an Account"
-      run
-    else
-      puts "Welcome back #{@user.name}"
-    end
+    input = gets.chomp
+   if User.find_by(name: input)
+     puts "Welcome back #{input}"
+   else
+     did_not_find_you
+      end
   end
+
+  def did_not_find_you
+    puts "We havent met you yet. Please Create an Account"
+    run
+  end
+
 
   def create_account
     puts "\nMake your profile...\n"
