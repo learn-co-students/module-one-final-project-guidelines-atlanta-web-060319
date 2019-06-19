@@ -44,13 +44,8 @@ class CLI
     @third = Goal.find_by(cup: 800)
     @counter = 0
 
-<<<<<<< HEAD
-    puts "\n\n 1. How much water do you currently drink?\n\n"
-    choices = ["One Cup Daily", "Three Cups Daily", "My Insides Are A Desert"]
-=======
     puts "1. How much water do you currently drink?"
     choices = ["One Cup Daily", "Three Cups Daily", "I'm Basically a Mermaid/Man!!"]
->>>>>>> gihpy
     a = @prompt.select("Select Amount?", choices)
     # binding.pry
     case a
