@@ -102,9 +102,44 @@ class CLI
   end
 
   def login
-    puts "Tell Us Your Name!"
+    puts "Please enter your username!"
     name = gets.chomp
-    @user = User.find_or_create_by(name: name)
+    @user = User.find_by(name: name.downcase)
+    if @user.name != name.downcase
+      puts "We havent met you yet. Please Create an Account"
+      run
+    else
+      puts "Welcome back #{@user.name}"
+    end
+  end
+
+  def create_account
+    puts "\nMake your profile...\n"
+
+      sleep 1
+      puts "Enter your name!\n\n"
+      name = gets.chomp
+      @user = User.create(name: name)
+      `reset`
+      sleep 1
+
+      puts "What is your Spirit Animal?\n\n"
+      animal = gets.chomp
+      @user.spirit_animal = animal
+      @user.save
+      `reset`
+
+      sleep 1
+      puts "How Old Are You?\n\n"
+      age = gets.chomp
+      @user.age = age
+      @user.save
+      `reset`
+
+      sleep 1
+      puts "Hi #{@user.name}!, Your spirit animal is #{@user.spirit_animal}.\n\n"
+
+      main_menu
   end
 
   def input_water_intake
@@ -157,15 +192,19 @@ class CLI
       water.save
       puts " You have increased Your Water Intake By #{track}"
     end
+    main_menu
   end
 
   def see_progress
   #See progress method should store water  intake amount from input goal
   @water = WaterIntake.find_by(user_id: @user.id)
+  # binding.pry
+
   @c_track = Goal.find_by(id: @water.goal_id)
   puts "Your Goal is #{@c_track.cup}!!!"
 
   puts "You've had a total #{@water.tracker} cups so far!"
+  main_menu
   end
 
   def update_profile
@@ -194,6 +233,7 @@ class CLI
       @user.save
       puts "Happy Belated Birthday, You are now #{age} the brave!"
     end
+    main_menu
   end
 
   def delete_account
