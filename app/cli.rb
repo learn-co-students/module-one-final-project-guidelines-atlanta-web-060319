@@ -42,12 +42,15 @@ class CLI
 
   end
 
+
   def take_quiz
     ##build five questions
     @first = Goal.find_by(cup: 400)
     @second = Goal.find_by(cup: 600)
     @third = Goal.find_by(cup: 800)
     @counter = 0
+
+    `reset`
 
     puts "\n\n1. How much water do you currently drink?\n\n"
     choices = ["One Cup Daily", "Three Cups Daily", "I'm Basically a Mermaid/Man!!"]
@@ -107,7 +110,10 @@ class CLI
       puts "\n\nYour goal is to reach 800cups\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @third.id, tracker: 0)
     end
+
+    main_menu
   end
+  `reset`
 
   def login
     `reset`
@@ -115,7 +121,7 @@ class CLI
     input = gets.chomp
    if User.find_by(name: input)
      @user = User.find_by(name: input)
-     puts "Welcome back #{input}"
+     puts "\n\nWelcome back #{input}\n\n"
    else
      did_not_find_you
     end
@@ -165,7 +171,7 @@ class CLI
     cups = @prompt.select("Select Your Amount?", choices)
     case cups
     when choices[0]
-        water = WaterIntake.find_by(user_id: @user.id)
+        water = WaterIntake.find_by(id: @user.id)
         track = water.tracker += 1
         water.save
         puts " Awee You Only Increased Your Water Intake By #{track}!"
@@ -173,37 +179,37 @@ class CLI
                 \nThere are a lot of anecdotal reports about how water can
                 \nhelp hydrate the skin and reduce acne.\n\n"
       when choices[1]
-        water =  WaterIntake.find_by(user_id: @user.id)
+        water =  WaterIntake.find_by(id: @user.id)
         track = water.tracker += 2
         water.save
         puts " You have increased Your Water Intake By #{track}"
       when choices[2]
-        water =  WaterIntake.find_by(user_id: @user.id)
+        water =  WaterIntake.find_by(id: @user.id)
         track = water.tracker += 3
         water.save
         puts " You have increased Your Water Intake By #{track}"
       when choices[3]
-        water =  WaterIntake.find_by(user_id: @user.id)
+        water =  WaterIntake.find_by(id: @user.id)
         track = water.tracker += 4
         water.save
         puts " You have increased Your Water Intake By #{track}"
       when choices[4]
-        water =  WaterIntake.find_by(user_id: @user.id)
+        water =  WaterIntake.find_by(id: @user.id)
         track = water.tracker += 5
         water.save
         puts " You have increased Your Water Intake By #{track}"
       when choices[5]
-        water =  WaterIntake.find_by(user_id: @user.id)
+        water =  WaterIntake.find_by(id: @user.id)
         track = water.tracker += 6
         water.save
         puts " You have increased Your Water Intake By #{track}"
       when choices[6]
-        water =  WaterIntake.find_by(user_id: @user.id)
+        water =  WaterIntake.find_by(id: @user.id)
         track = water.tracker += 7
         water.save
         puts " You have increased Your Water Intake By #{track}"
       when choices[7]
-        water =  WaterIntake.find_by(user_id: @user.id)
+        water =  WaterIntake.find_by(id: @user.id)
         track = water.tracker += 8
         water.save
         puts " You have increased Your Water Intake By #{track}"
@@ -215,43 +221,44 @@ class CLI
 
   def see_progress
   #See progress method should store water  intake amount from input goal
-  @water = WaterIntake.find_by(user_id: @user.id)
-  # binding.pry
+  @water = WaterIntake.find_by(id: @user.id)
+  
 
   @c_track = Goal.find_by(id: @water.goal_id)
-  puts "Your Goal is #{@c_track.cup}!!!"
+  puts "\n\nYour Goal is #{@c_track.cup}!!!\\n\n"
 
-  puts "You've had a total #{@water.tracker} cups so far!"
+
+  puts "\n\nYou've had a total #{@water.tracker} cups so far!\n\n"
   main_menu
   end
 
   def update_profile
     #user should be able to change name and add spirit spirit_animal
-     puts "What Would you Like to Update"
+     puts "\n\nWhat Would you Like to Update\n\n"
     options = ["Change Name", "Change Spirit Animal", "Change Age"]
-    c = @prompt.select("Select Amount?", options)
-
+    c = @prompt.select("Choose One!", options)
+       `reset`
     case c
       when  options[0]
-        puts "What is your new name?"
+        puts "\n\nWhat is your new name?\n\n"
         name =  gets.chomp
         @user.name = name
         @user.save
         puts "Ok, got it! Hi #{name.capitalize}!!!"
       when  options[1]
-        puts "What is your new Spirit Animal"
+        puts "\n\nWhat is your new Spirit Animal\n\n"
         animal = gets.chomp
         @user.spirit_animal = animal
         @user.save
-        puts " You will now be Known as #{animal.capitalize}"
+        puts "\n\n You will now be Known as #{animal.capitalize}..\n\n"
       when  options[2]
-        puts "Was it Your Birthday? What is Your New Age?"
+        puts "\n\nWas it Your Birthday? What is Your New Age?\n\n"
         age = gets.chomp
         @user.age = age
         @user.save
-        puts "Happy Belated Birthday, You are now #{age} the brave!"
+        puts "\n\nHappy Belated Birthday, You are now #{age} the brave!\n\n"
       else
-        puts "ERROR FIX ME..UPDATE PROFILE"
+        puts "\n\nERROR FIX ME..UPDATE PROFILE\n\n"
     end
     main_menu
   end
