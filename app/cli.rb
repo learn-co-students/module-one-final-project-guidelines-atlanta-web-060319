@@ -3,23 +3,42 @@ class CLI
     def run
 		@prompt = TTY::Prompt.new #tty-prompt used for various menus in this program
 		@font = TTY::Font.new(:starwars)
-		@pastel = Pastel.new
+        @pastel = Pastel.new
+        # @bold = pastel.decorate('Unicorn', :green, :on_blue, :bold)
 
         intro
 
     	while true 
-    		top_menu
+            top_menu
     	end
 	end
 		#-------------------------
 		#Intro Section
         def intro
             chewsound = fork{ exec 'afplay', "music/Chewbaccasound-1.mp3"}
-            puts @font.write("CHEWBECCA")
-            puts @pastel.red("Sandwich Names").center(90)
-            sleep 3
+            puts @pastel.blue(@font.write("CHEWBECCA"))
+            puts @pastel.decorate('Sandwich Names', :yellow, :bold).center(110)
+            sleep 3 
+            `reset`
+            title_crawl
         end
-		#-------------------------
+        #-------------------------
+        def title_crawl
+             theme = fork{ exec 'afplay', "music/starWars-mainTitle.mp3"} 
+            puts "Episode 20 Chewbecca's Sandwiches"
+            puts "\n\n"
+            sleep 3
+            puts "It's a great time in the Universe......."
+            sleep 3 
+            puts "It's a dark time for Pepperoni!!!"
+            sleep 3 
+            puts "Darth Kaeland's hunger for Pepperoni has"
+            sleep 3 
+            puts "caused a disturbance in the Force."
+            sleep 3 
+            puts "Only Ham Sandwiches can restore the balance."
+            sleep 1 
+        end 
 			
 		#-------------------------
 		#Top Menu Section
