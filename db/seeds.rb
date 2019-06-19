@@ -70,3 +70,9 @@ review_4 = Review.create(
     content: "While the margaritas here take the show, the chips and salsa are none too shabby either. The chips find a nice balance between stiff and flaky, maybe erring slightly on the stiff side.  They have a red and a green salsa that are both excellent, but the green is hard to get away from. Worth the visit!",
     rating: 4
     )
+review_5 = Review.create(
+    user_id: sjp.id, 
+    restaurant_id: barrio.id, 
+    content: "Chips and salsa are actually average, but the atmoshpere is awesoeme!",
+    rating: 2
+    )

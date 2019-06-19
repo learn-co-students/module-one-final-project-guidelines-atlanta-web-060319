@@ -7,7 +7,7 @@ class Cli
         @user_content = nil
         @user_rating = nil
 
-        # `reset`
+        `reset`
         puts "\n\n¡Bienvenidos! Welcome to ¡SalsaRey!\n\nThe place Atlanta goes to optimize their chips and salsa experience in the city they call home. \n\n¡Vamos ATL!\n\n"
         sleep 1
         while true
@@ -87,11 +87,11 @@ class Cli
         elsif choice == choices[2]
           find_reviews_by_neighborhood
         elsif choice == choices[3]
-            find_reveiws_by_restaurant_name
+            find_reviews_by_restaurant_name
         elsif choice == choices[4]
             find_ratings_for_restaurants
         elsif choice == choices[5]
-            puts "\n\nThanks for stopping by,and come again soon!\n\n\n\n¡Gracias y Adios!\n\n\n"
+            puts "\n\nTHANKS FOR STOPPING BY, AND COME AGAIN SOON!\n\n\n\n¡GRACIAS y ADIOS!\n\n\n"
             exit
         end
     end
@@ -147,6 +147,10 @@ class Cli
        
     end
 
+    def neighborhoods
+        Restaurant.all.select {|rest| rest.neighborhood == self.neighborhood}
+    end
+
     def reviews
         Review.all.select {|r| r.restaurant_id == self.id}
     end
@@ -154,19 +158,35 @@ class Cli
     def find_reviews_by_neighborhood
         puts "What neighborhood are you trying to search:"
         neighborhood = gets.chomp
-        x = Restaurant.all.select {|rest| rest.neighborhood == neighborhood}
-        y = x.map do |rest|
-            rest.reviews
-            end
-        z = y.map do |r|
-            binding.pry
-            r[]
-            end
-        return z
+        if Restaurant.all.neighborhoods.include?(neighborhood)
+            x = Restaurant.all.select {|rest| rest.neighborhood == neighborhood}
+            y = x.map do |rest|
+                    rest.reviews
+                end
+            puts "\nHere are your results:\n"
+            z = y.map do |r|
+                a = Restaurant.find(r[0].restaurant_id)
+                puts "\n\nRESTAURANT: #{a.name}\nREVIEW: #{r[0].content}\nRATING: #{r[0].rating}\n\n\n"
+                end
+        else
+            puts "Sorry, but there are no reviews available for that restaurant.\nPerhaps you could write one for us?" 
+        end
     end
 
-    def find_ratings_for_restaurants_by_name
-        puts "Under Construction" 
+    def find_reviews_by_restaurant_name
+        puts "What restaurant are you trying to find:"
+        name = gets.chomp
+        x = Restaurant.find_by(name: name)
+        if x
+            y = x.reviews
+            puts "\nHere are your results:\n"
+            z = y.map do |r|
+                a = Restaurant.find(r.restaurant_id)
+                puts "\n\nRESTAURANT: #{a.name}\nREVIEW: #{r.content}\nRATING: #{r.rating}\n\n\n"
+                end
+        else
+            puts "Sorry, but there are no reviews available for that restaurant.\nPerhaps you could write one for us?"
+        end
     end
 
 
