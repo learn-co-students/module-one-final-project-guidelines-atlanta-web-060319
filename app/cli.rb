@@ -45,23 +45,23 @@ class CLI
     @third = Goal.find_by(cup: 800)
     @counter = 0
 
-    puts "1. How much water do you currently drink?"
+    puts "\n\n 1. How much water do you currently drink?\n\n"
     choices = ["One Cup Daily", "Three Cups Daily", "My Insides Are A Desert"]
     a = @prompt.select("Select Amount?", choices)
     # binding.pry
     case a
     when choices[0]
-      puts "\nStudies show need more water\n"
+      puts "\n\n Studies show need more water \n\n"
       @counter += 1
     when choices[1]
-      puts "Studies show thats okay but it could be better"
+      puts "\n\n Studies show thats okay but it could be better \n\n"
       @counter += 2
     when choices[2]
-      puts "Studying your dying"
+      puts "\n\n Studying your dying \n\n"
       @counter += 3
     end
 
-    puts " 2. How much water would you like to be drinking a day?"
+    puts "\n\n 2. How much water would you like to be drinking a day?\n\n"
     choices_two = ["Three Cups Daily", "Six Cups Daily", "Eight Cups Daily"]
     b = @prompt.select("Select Amount?", choices_two)
 
@@ -74,7 +74,7 @@ class CLI
       @counter += 3
     end
 
-    puts " 3. What do you wish to gain from Hydrate Your Life?"
+    puts "\n\n 3. What do you wish to gain from Hydrate Your Life?\n\n"
     choices_three = ["Better Health", "More Energy", "Finally Be Water Healthy"]
     c = @prompt.select("Select Amount?", choices_three)
 
@@ -90,13 +90,13 @@ class CLI
     end
 
     if @counter <= 4
-      puts "Your Goal is to reach 400cups"
+      puts "\n\nYour Goal is to reach 400cups\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @first.id, tracker: 0)
     elsif @counter <= 6
-      puts "Your Goal is to reach 600cups"
+      puts "\n\nYour Goal is to reach 600cups\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @second.id, tracker: 0)
   else @counter <= 10
-      puts "Your goal is to reach 800cups"
+      puts "\n\nYour goal is to reach 800cups\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @third.id, tracker: 0)
     end
   end
