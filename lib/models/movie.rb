@@ -23,6 +23,8 @@ class Movie < ActiveRecord::Base
          overview = response_array["overview"]
          release_date = response_array["release_date"]
 
+         `reset`
+
          puts title
          puts overview
          puts release_date
