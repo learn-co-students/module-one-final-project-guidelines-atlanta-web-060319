@@ -1,4 +1,5 @@
 class CLI
+    #hello 
     def run
 		@prompt = TTY::Prompt.new #tty-prompt used for various menus in this program
 		@font = TTY::Font.new(:starwars)
