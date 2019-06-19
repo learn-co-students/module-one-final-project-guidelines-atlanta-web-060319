@@ -1,10 +1,10 @@
 require "pry"
 class CLI
-
+    `reset`
   def run
     @user = nil
     @prompt = TTY::Prompt.new
-    puts "Welcome to Hydrate Yourself"
+    puts "\n\nWelcome to Hydrate Yourself\n\n"
     response = @prompt.select("What would you like to do?", %w(Login CreateAccount Exit))
     case response
       when "Login"
@@ -12,12 +12,13 @@ class CLI
       when "CreateAccount"
         create_account
       when "Exit"
+        puts "\n\nSee Ya!\n\n"
         exit
       end
-
+      
     main_menu
   end
-
+  `reset`
   def main_menu
     choices = ["Take Quiz", "Input WaterIntake", "See Progress", "Update Profile", "Delete Account"]
     a = @prompt.select("Select Choice?", choices)
@@ -74,7 +75,7 @@ class CLI
     end
 
     puts "\n\n 3. What do you wish to gain from Hydrate Your Life?\n\n"
-    choices_three = ["Better Health", "More Energy", "Finally Be Water Healthy"]
+    choices_three = ["Better Health", "More Energy", "Aqua Lungs"]
     c = @prompt.select("Select Amount?", choices_three)
 
     case c
@@ -101,14 +102,16 @@ class CLI
   end
 
   def login
+    `reset`
     puts "Please enter your username!"
     input = gets.chomp
    if User.find_by(name: input)
-     puts "Welcome back #{input}"
+     puts "\n\nWelcome Back!!! #{input}\n\n"
    else
      did_not_find_you
       end
   end
+  sleep 3
 
   def did_not_find_you
     puts "We havent met you yet. Please Create an Account"
