@@ -176,37 +176,59 @@ class CLI
         water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 2
         water.save
-        puts " You have increased Your Water Intake By #{track}"
+        puts " You have Increased Your Water Intake By #{track}"
+        puts "\nDid You Know:
+                \nThe brain and heart are composed of 73% water,
+                \nand the lungs are about 83% water.\n\n"
       when choices[2]
         water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 3
         water.save
-        puts " You have increased Your Water Intake By #{track}"
+        puts "You have increased Your Water Intake By #{track}"
+        puts "\nDid You Know:
+                \nAdult male needs about 12cups of water per day,
+                 \nwhile an adult female needs about 9cups water per day.\n\n"
       when choices[3]
         water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 4
         water.save
         puts " You have increased Your Water Intake By #{track}"
+        puts "\nDid You Know:
+              \nWater is a vital nutrient to the life of every cell, it acts
+              \nas a first building material for the body.\n\n"
       when choices[4]
         water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 5
         water.save
         puts " You have increased Your Water Intake By #{track}"
+        puts "\nDid You Know:
+              \nWater regulates our internal body temperature by
+              \nsweating and respiration.\n\n"
       when choices[5]
         water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 6
         water.save
         puts " You have increased Your Water Intake By #{track}"
+        puts "\nDid You Know:
+              \nThe carbohydrates and proteins that our bodies use as
+              \nfood are metabolized and transported by water in the bloodstream.\n\n"
       when choices[6]
         water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 7
         water.save
         puts " You have increased Your Water Intake By #{track}"
+        puts "\nDid You Know:
+              \nWater acts as a shock absorber for
+              \nthe brain, spinal cord, and fetus.\n\n"
       when choices[7]
         water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 8
         water.save
         puts " You have increased Your Water Intake By #{track}"
+        puts "\nDid You Know:
+              \nWater lubricates joints. &
+              \nIncreasing water intake can help with constipation,
+              \na very common problem.\n\n "
       else
         puts "ERROR FIX ME..IM IN WATER INTAKE"
     end
