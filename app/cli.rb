@@ -27,10 +27,10 @@ class CLI
   end
   `reset`
   def main_menu
-    choices = ["Take Quiz", "Input WaterIntake", "See Progress", "Update Profile", "Delete Account"]
-    a = @prompt.select("Select Choice?", choices)
+    choices = ["Take Quiz", "Input WaterIntake", "See Progress", "Update Profile", "Delete Account", "Exit"]
+    to_do = @prompt.select("Take Your Pick?", choices)
 
-    case a
+    case to_do
       when choices[0]
          take_quiz
       when choices[1]
@@ -41,6 +41,8 @@ class CLI
         update_profile
       when choices[4]
         delete_account
+      when choices[5]
+        exit
       else
         exit
     end
@@ -57,25 +59,25 @@ class CLI
 
     `reset`
 
-    puts "\n\n1. How much water do you currently drink?\n\n"
+    puts "\n1. #{@user.name.capitalize} how much water do you currently drink in one day?\n\n"
     choices = ["One Cup Daily", "Three Cups Daily", "I'm Basically a Mermaid/Man!!"]
-    a = @prompt.select("Select Amount?", choices)
+    amount = @prompt.select("Select Amount?", choices)
     # binding.pry
-    case a
+    case amount
       when choices[0]
-        puts "\n\nDude Seriously!!\n\n"
+        puts "\n\n#{@user.name.capitalize}! Your body is on the verge of collapsing from dehydration!!\n\n"
         @counter += 1
       when choices[1]
-        puts "\n\nThat's Ok, but Maybe You Could Do Better\n\n"
+        puts "\n\nThat's ok, but #{@user.spirit_animal} you can do better.\n\n"
         @counter += 2
       when choices[2]
-        puts "\n\nYou Rock!!!\n\n"
+        puts "\n\n#{@user.spirit_animal.capitalize} you rock!!!\n\n"
         @counter += 3
       else
         puts "ERROR FIX ME..IM IN TAKE QUIZ"
     end
 
-    puts "\n\n 2. How much water would you like to be drinking a day?\n\n"
+    puts "\n2. How much water would you like to be drinking a day?\n\n"
     choices_two = ["Three Cups Daily", "Six Cups Daily", "Eight Cups Daily"]
     b = @prompt.select("Select Amount?", choices_two)
 
@@ -106,13 +108,13 @@ class CLI
     end
 
     if @counter <= 4
-      puts "\n\nYour Goal is to reach 400cups\n\n"
+      puts "\n\nYour Goal is to reach 400cups within one month.\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @first.id, tracker: 0)
     elsif @counter <= 6
-      puts "\n\nYour Goal is to reach 600cups\n\n"
+      puts "\n\nYour Goal is to reach 600cups within two months.\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @second.id, tracker: 0)
     else @counter <= 10
-      puts "\n\nYour goal is to reach 800cups\n\n"
+      puts "\n\nYour goal is to reach 800cups within three months.\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @third.id, tracker: 0)
     end
 
@@ -126,7 +128,7 @@ class CLI
     input = gets.chomp
    if User.find_by(name: input)
      @user = User.find_by(name: input)
-     puts "\n\nWelcome back #{input}\n\n"
+     puts "\n\nWelcome back #{@user.name.capitalize}, code name #{@user.spirit_animal}.\n\n"
    else
      did_not_find_you
     end
@@ -134,36 +136,36 @@ class CLI
   sleep 3
 
   def did_not_find_you
-    puts "We havent met you yet. Please Create an Account"
+    puts "\nWe havent met you yet. Please Create an Account.\n"
     run
   end
 
 
   def create_account
-      puts "\nMake your profile...\n"
+      puts "\nCreate your profile.\n"
 
       sleep 1
-      puts "Enter your name!\n\n"
+      puts "\nEnter your name!\n\n"
       name = gets.chomp
       @user = User.create(name: name.downcase)
       `reset`
       sleep 1
 
-      puts "What is your Spirit Animal?\n\n"
+      puts "\nWhat is your spirit animal?\n\n"
       animal = gets.chomp
       @user.spirit_animal = animal
       @user.save
       `reset`
 
       sleep 1
-      puts "How Old Are You?\n\n"
+      puts "\nHow Old Are You?\n\n"
       age = gets.chomp
       @user.age = age
       @user.save
       `reset`
 
       sleep 1
-      puts "Hi #{@user.name}!, Your spirit animal is #{@user.spirit_animal}.\n\n"
+      puts "Hi #{@user.name.capitalize}!, Your spirit animal is #{@user.spirit_animal}.\n\n"
 
       main_menu
   end
@@ -248,8 +250,13 @@ class CLI
 
   def see_progress
   #See progress method should store water  intake amount from input goal
+<<<<<<< HEAD
   @water = WaterIntake.find_by(user_id: @user.id)
-  
+
+=======
+  @water = WaterIntake.find_by(id: @user.id)
+
+>>>>>>> adding-spirit-animal
 
   @c_track = Goal.find_by(id: @water.goal_id)
   puts "\n\nYour Goal is #{@c_track.cup}!!!\n\n"
