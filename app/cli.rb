@@ -1,10 +1,12 @@
 class CLI
-    #hello 
     def run
 		@prompt = TTY::Prompt.new #tty-prompt used for various menus in this program
 		@font = TTY::Font.new(:starwars)
         @pastel = Pastel.new
-        # @bold = pastel.decorate('Unicorn', :green, :on_blue, :bold)
+        @adminhash = {
+            User.all.find_by(user_name: "Robert Chen").user_name => User.all.find_by(user_name: "Robert Chen").email,
+            User.all.find_by(user_name: "Reina Ewing").user_name => User.all.find_by(user_name: "Reina Ewing").email
+        }
 
         intro
 
@@ -20,43 +22,53 @@ class CLI
             puts @pastel.decorate('Sandwich Names', :yellow, :bold).center(110)
             sleep 3 
             `reset`
-            title_crawl
+            puts "Skip Intro?"
+            sleep 2
+            yesorno = option_selector("choice", ["Yes", "No"])
+            `reset`
+            title_crawl if yesorno == "No"
         end
         #-------------------------
         def title_crawl
-             theme = fork{ exec 'afplay', "music/starWars-mainTitle.mp3"} 
+            theme = fork{ exec 'afplay', "music/starWars-mainTitle.mp3"} 
             puts "Episode 20 Chewbecca's Sandwiches"
             puts "\n\n"
-            sleep 3
+            sleep 2
             puts "It's a great time in the Universe......."
-            sleep 3 
+            sleep 2 
             puts "It's a dark time for Pepperoni!!!"
-            sleep 3 
+            sleep 2 
             puts "Darth Kaeland's hunger for Pepperoni has"
-            sleep 3 
+            sleep 2 
             puts "caused a disturbance in the Force."
-            sleep 3 
+            sleep 2 
+            puts "Will Gee continues to smuggle vital roast beef."
+            sleep 2 
             puts "Only Ham Sandwiches can restore the balance."
-            sleep 1 
+            sleep 2
+            puts "Help us, Master Brit, you are our only hope."
+            sleep 2 
         end 
 			
 		#-------------------------
 		#Top Menu Section
 		def top_menu
 			`reset`
-    		top_menu_options = ["Login", "Top 3 Most Popular Chewbecca's Sandwiches", "Exit"]
+    		top_menu_options = ["Login", "Top 3 Most Popular Chewbecca's Sandwiches", "Exit", "Official Business Only"]
     		top_menu_selection = @prompt.enum_select("Please select one.", top_menu_options)
     		#tty-prompt provides a nice menu with given options as strings
 
     		case top_menu_selection
     		when "Login"
     			`reset`
+                r2you = fork{ exec 'afplay', "music/R2D2-hey-you.wav"}
     			login
     		when "Top 3 Most Popular Chewbecca's Sandwiches"
     			`reset`
+                r2yeah = fork{ exec 'afplay', "music/R2D2-yeah.mp3"}
     			Order.top3
     			sleep 7
-    		else
+    		when "Exit"
                 `reset`
                 leiainsult = fork{ exec 'afplay', "music/nerfherder.mp3"}
                 puts "***"
@@ -71,6 +83,20 @@ class CLI
                 sleep 1
                 puts "******************"
     			exit
+            else
+                `reset`
+                puts "What is your user name?"
+                adminname = gets.chomp
+                puts "What is your email?"
+                adminemail = gets.chomp
+                if @adminhash[adminname] == adminemail 
+                    puts "Welcome, Admin #{adminname}!"
+                    puts "Entering into a Ruby Session now."
+                    binding.pry
+                else
+                    puts "Incorrect input, returning to main menu."
+                    sleep 2
+                end
     		end
     	end
 
@@ -84,17 +110,31 @@ class CLI
     		if User.find_by(user_name: name)
     			puts "Welcome, back #{name}!"
                 @user = User.find_or_create_by(user_name: name)
+                email
                 sleep 4
                 menu_after_login
     		else
     			puts "Welcome, #{name}!"
                 @user = User.find_or_create_by(user_name: name)
+                email
                 sleep 4
                 menu_after_login_new_user
     		end
 			#things to do after login: build sandwich, edit username or email and delete user
 		end
 		#-------------------------
+
+        #-------------------------
+        #Email Section
+        def email
+            puts "Do you want to add or update your email? (yes or no)"
+            yesorno = gets.chomp.downcase
+            if yesorno == "yes"
+                puts "Enter your email"
+                @user.update_attribute(:email, gets.chomp)
+            end
+        end
+        #-------------------------
 		
         #-------------------------
         #After-Login Menu Section
@@ -172,7 +212,7 @@ class CLI
                 sleep 6
             else
                 `reset`
-                leiainsult = fork{ exec 'afplay', "music/nerfherder.mp3"}
+                leiainsult = fork{ exec 'afplay', "music/nerfherder.mp3"} 
                 puts "***"
                 sleep 1
                 puts "******"
@@ -193,7 +233,7 @@ class CLI
         #Option Selector
         def option_selector(item, itemarr)
             `reset`
-            puts "Choose a #{item}."
+            puts "Pick a #{item}."
             selection = @prompt.enum_select("Please select one.", itemarr)
         end
         #-------------------------
