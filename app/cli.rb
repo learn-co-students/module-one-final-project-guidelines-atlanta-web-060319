@@ -8,8 +8,6 @@ class CLI
     @font = TTY::Font.new(:doom)
     puts "Welcome to.."
     puts @pastel.blue(@font.write("iHydrate"))
-    # puts @font.write("Hydrate Yourself")
-    # puts "\n\nWelcome to Hydrate Yourself\n\n"
     response = @prompt.select("What would you like to do?", %w(Login CreateAccount Exit))
     case response
       when "Login"
@@ -70,50 +68,62 @@ class CLI
         puts @pastel.yellow"\n\nMeh..That's ok, but #{@user.spirit_animal} you can do better.\n\n"
         @counter += 2
       when choices[2]
-        puts "\n\n#{@user.spirit_animal.capitalize} you rock!!!\n\n"
+        puts "\n\n#{@user.spirit_animal.upcase} YOU ROCK!\n\n"
         @counter += 3
       else
         puts "ERROR FIX ME..IM IN TAKE QUIZ"
     end
-  
-    puts "\n2. How much water would you like to be drinking a day?\n\n"
-    choices_two = ["Three Cups Daily", "Six Cups Daily", "Eight Cups Daily"]
-    b = @prompt.select("Select Amount?", choices_two)
 
-    case b
+    puts "\n2. #{@user.name.capitalize} how much water would you like to be drinking daily?\n\n"
+    choices_two = ["Three Cups Daily", "Six Cups Daily", "Eight Cups Daily"]
+    daily = @prompt.select("Select Amount?", choices_two)
+
+    case daily
       when choices_two[0]
+        puts "\n\n We understand #{@user.spirit_animal.downcase}, you need to take baby steps.\n\n"
         @counter += 1
       when choices_two[1]
+        puts "\n\n #{@user.spirit_animal.capitalize} you're on the road to better health.\n\n"
         @counter += 2
       when choices_two[2]
+        puts "\n\n #{@user.spirit_animal.capitalize} you'll be at complete water health in no time!"
         @counter += 3
       else
         puts "ERROR FIX ME..IM IN TAKE QUIZ"
     end
 
-    puts "\n\n 3. What do you wish to gain from Hydrate Your Life?\n\n"
+    puts "\n3. #{@user.name.capitalize} what do you wish to gain from iHydrate?\n\n"
     choices_three = ["Better Health", "More Energy", "Aqua Lungs"]
-    c = @prompt.select("Select Amount?", choices_three)
+    gain = @prompt.select("Select Your Wish?", choices_three)
 
-    case c
+    case gain
       when choices_three[0]
+        puts "\n#{@user.name.capitalize} iHydrate is dedicated to helping you reach better health.\n\n"
         @counter += 1
       when choices_three[1]
+        puts "\n#{@user.name.capitalize} iHydrate is dedicated to helping you gain more energy.\n\n"
         @counter += 2
       when choices_three[2]
+        puts "\n#{@user.name.capitalize} iHydrate is dedicated to helping you gain your aqua lungs.\n\n"
         @counter += 3
       else
         puts "ERROR FIX ME..IM IN TAKE QUIZ"
     end
 
     if @counter <= 4
-      puts "\n\nYour Goal is to reach 400cups within one month.\n\n"
+      puts "One Moment While We Calculate Your Results and Set Your Goal..."
+      sleep 3
+      puts "\n\n#{@user.spirit_animal.capitalize} your goal is to reach 400cups within one month.\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @first.id, tracker: 0)
     elsif @counter <= 6
-      puts "\n\nYour Goal is to reach 600cups within two months.\n\n"
+      puts "One Moment While We Calculate Your Results and Set Your Goal..."
+      sleep 3
+      puts "\n\n#{@user.spirit_animal.capitalize} your goal is to reach 600cups within two months.\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @second.id, tracker: 0)
     else @counter <= 10
-      puts "\n\nYour goal is to reach 800cups within three months.\n\n"
+      puts "One Moment While We Calculate Your Results and Set Your Goal..."
+      sleep 3
+      puts "\n\n#{@user.spirit_animal.capitalize} your goal is to reach 800cups within three months.\n\n"
       water = WaterIntake.create(user_id: @user.id, goal_id: @third.id, tracker: 0)
     end
 
