@@ -57,7 +57,6 @@ class CLI
     @third = Goal.find_by(cup: 800)
     @counter = 0
 
-    `reset`
 
     puts "\n1. #{@user.name.capitalize} how much water do you currently drink in one day?\n\n"
     choices = ["One Cup Daily", "Three Cups Daily", "I'm Basically a Mermaid/Man!!"]
@@ -65,10 +64,10 @@ class CLI
     # binding.pry
     case amount
       when choices[0]
-        puts "\n\n#{@user.name.capitalize}! Your body is on the verge of collapsing from dehydration!!\n\n"
+        puts @pastel.red("\n\n#{@user.name.capitalize}! Your body is on the verge of collapsing from dehydration!!\n\n")
         @counter += 1
       when choices[1]
-        puts "\n\nThat's ok, but #{@user.spirit_animal} you can do better.\n\n"
+        puts @pastel.yellow"\n\nMeh..That's ok, but #{@user.spirit_animal} you can do better.\n\n"
         @counter += 2
       when choices[2]
         puts "\n\n#{@user.spirit_animal.capitalize} you rock!!!\n\n"
@@ -76,7 +75,7 @@ class CLI
       else
         puts "ERROR FIX ME..IM IN TAKE QUIZ"
     end
-
+  
     puts "\n2. How much water would you like to be drinking a day?\n\n"
     choices_two = ["Three Cups Daily", "Six Cups Daily", "Eight Cups Daily"]
     b = @prompt.select("Select Amount?", choices_two)
@@ -124,11 +123,11 @@ class CLI
 
   def login
     `reset`
-    puts "Please enter your username!"
+    puts @pastel.cyan("Please enter your username!")
     input = gets.chomp
    if User.find_by(name: input)
      @user = User.find_by(name: input)
-     puts "\n\nWelcome back #{@user.name.capitalize}, code name #{@user.spirit_animal}.\n\n"
+     puts @pastel.cyan("\n\nWelcome back #{@user.name.capitalize}, code name #{@user.spirit_animal}.\n\n")
    else
      did_not_find_you
     end
@@ -136,7 +135,7 @@ class CLI
   sleep 3
 
   def did_not_find_you
-    puts "\nWe havent met you yet. Please Create an Account.\n"
+    puts "\n\nWe havent met you yet. Please Create an Account.\n\n"
     run
   end
 
@@ -151,21 +150,21 @@ class CLI
       `reset`
       sleep 1
 
-      puts "\nWhat is your spirit animal?\n\n"
+      puts @pastel.cyan("\nWhat is your spirit animal?\n\n")
       animal = gets.chomp
       @user.spirit_animal = animal
       @user.save
       `reset`
 
       sleep 1
-      puts "\nHow Old Are You?\n\n"
+      puts @pastel.cyan("\nHow Old Are You?\n\n")
       age = gets.chomp
       @user.age = age
       @user.save
       `reset`
 
       sleep 1
-      puts "Hi #{@user.name.capitalize}!, Your spirit animal is #{@user.spirit_animal}.\n\n"
+      puts @pastel.yellow("Hi #{@user.name.capitalize}!, Your spirit animal is #{@user.spirit_animal}.\n\n")
 
       main_menu
   end
