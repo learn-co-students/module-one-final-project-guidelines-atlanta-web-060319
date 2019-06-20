@@ -11,33 +11,38 @@ sjp = User.create(name: "sjp", age:21)
 ###################################################
 
 vecino = Restaurant.create(
-    name: "Tacqueria El Vecino", 
-    neighborhood: "Oak Grove", 
+    name: "tacqueria el vecino", 
+    neighborhood: "oak grove", 
     salsa_variety?: true
     )
 superica_krog = Restaurant.create(
-    name: "Superica", 
-    neighborhood: "Inman Park", 
+    name: "superica", 
+    neighborhood: "inman park", 
     salsa_variety?: true
     )
+superica_avalon = Restaurant.create(
+    name: "superica",
+    neighborhood: "alpharetta",
+    salsa_variety?: true
+)
 eduardos = Restaurant.create(
-    name: "Eduardos", 
-    neighborhood: "Northlake", 
+    name: "eduardos", 
+    neighborhood: "northlake", 
     salsa_variety?: false
     )
 mezcalitos = Restaurant.create(
-    name: "Mezcalitos", 
-    neighborhood: "Grant Park", 
+    name: "mezcalitos", 
+    neighborhood: "grant park", 
     salsa_variety?: true
     )
 barrio = Restaurant.create(
-    name: "Mi Barrio", 
-    neighborhood: "Grant Park", 
+    name: "mi barrio", 
+    neighborhood: "grant park", 
     salsa_variety?: false
     )
 taco_mac = Restaurant.create(
-    name: "Taco Mac", 
-    neighborhood: "Midtown", 
+    name: "taco mac", 
+    neighborhood: "midtown", 
     salsa_variety?: false
     )
 
@@ -75,4 +80,10 @@ review_5 = Review.create(
     restaurant_id: barrio.id, 
     content: "Chips and salsa are actually average, but the atmoshpere is awesoeme!",
     rating: 2
+    )
+review_6 = Review.create(
+    user_id: sjp.id, 
+    restaurant_id: superica_avalon.id, 
+    content: "Not the same feel as the Krog St location, but the chips and salsa are still on point.",
+    rating: 4
     )
