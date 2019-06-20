@@ -4,7 +4,12 @@ class CLI
   def run
     @user = nil
     @prompt = TTY::Prompt.new
-    puts "\n\nWelcome to Hydrate Yourself\n\n"
+    @pastel = Pastel.new
+    @font = TTY::Font.new(:doom)
+    puts "Welcome to.."
+    puts @pastel.blue(@font.write("iHydrate"))
+    # puts @font.write("Hydrate Yourself")
+    # puts "\n\nWelcome to Hydrate Yourself\n\n"
     response = @prompt.select("What would you like to do?", %w(Login CreateAccount Exit))
     case response
       when "Login"
@@ -171,7 +176,7 @@ class CLI
     cups = @prompt.select("Select Your Amount?", choices)
     case cups
     when choices[0]
-        water = WaterIntake.find_by(id: @user.id)
+        water = WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 1
         water.save
         puts " Awee You Only Increased Your Water Intake By #{track}!"
@@ -243,11 +248,12 @@ class CLI
 
   def see_progress
   #See progress method should store water  intake amount from input goal
-  @water = WaterIntake.find_by(id: @user.id)
+  @water = WaterIntake.find_by(user_id: @user.id)
   
 
   @c_track = Goal.find_by(id: @water.goal_id)
-  puts "\n\nYour Goal is #{@c_track.cup}!!!\\n\n"
+  puts "\n\nYour Goal is #{@c_track.cup}!!!\n\n"
+
 
 
   puts "\n\nYou've had a total #{@water.tracker} cups so far!\n\n"
