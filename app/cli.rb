@@ -250,19 +250,12 @@ class CLI
 
   def see_progress
   #See progress method should store water  intake amount from input goal
-<<<<<<< HEAD
   @water = WaterIntake.find_by(user_id: @user.id)
 
-=======
   @water = WaterIntake.find_by(id: @user.id)
-
->>>>>>> adding-spirit-animal
 
   @c_track = Goal.find_by(id: @water.goal_id)
   puts "\n\nYour Goal is #{@c_track.cup}!!!\n\n"
-
-
-
   puts "\n\nYou've had a total #{@water.tracker} cups so far!\n\n"
   main_menu
   end
