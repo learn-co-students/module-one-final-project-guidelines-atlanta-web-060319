@@ -8,3 +8,5 @@ gem "require_all"
 gem "rest-client"
 gem 'pastel'
 gem 'tty-prompt'
+gem 'tty-font'
+gem 'rake'

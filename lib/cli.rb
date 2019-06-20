@@ -2,38 +2,57 @@ class CLI
 
    def run
     @prompt = TTY::Prompt.new
-    # @pastel = Pastel.new
+    @pastel = Pastel.new
+    @font = TTY::Font.new
     @user = nil
     @movie = nil
 
+
+
     `reset`
 
-    puts ("Welcome to Movie Review!")
+    puts @pastel.red(@font.write("MOVIE  REVIEW"))
 
     sleep 3
-    
+
     login
 
     sleep 3
+    while true
+      self.main_menu
+    end
 
-    search_for_movie
-
-    create_movie_review
-
-    most_reviewed_movie
+    # search_for_movie
+    #
+    # create_movie_review
+    #
+    # most_reviewed_movie
 
     # highest_rated_movie
 
-    
-
-    
    end
-    
-   
-   
-    
-   
-   
+
+
+   def self.main_menu
+      `reset`
+      choices = ["Search for a Movie","Most Reviewed Movie", "Highest Rated Movie" ,"Exit"]
+      choice = @prompt.enum_select("Hello, select one of the following choices.", choices)
+
+      if choice == choices[0]
+          search_for_movie
+      elsif choice == choices[2]
+          most_reviewed_movie
+      elsif choice == choices[3]
+           highest_rated_movie
+      elsif choice == choices[4]
+        puts "Thanks for using the Movie app.\n\n"
+          exit
+      end
+    end
+   end
+
+
+
    def login
         puts "What is your name?"
         name = gets.chomp
@@ -41,7 +60,7 @@ class CLI
    end
 
    def search_for_movie
-    @movie = Movie.search_display_and_create_new_movie
+      @movie = Movie.search_display_and_create_new_movie
    end
 
    def create_movie_review
@@ -78,13 +97,13 @@ class CLI
    puts reviewed_movie_titles.max_by { |v| freq[v] }
    end
 
-#    def highest_rated_movie
-    
-#    end
-
-
-
-
-
-
-end
+   def highest_rated_movie
+    # array = [ ]
+    # review.all.each do |movie|
+    #   review.all.each do |review|
+    #     if movie id == review.movie_id
+    #       array << [movie.title, review.rating]
+    #       end
+    #     end
+    #   end
+   end
