@@ -1,4 +1,3 @@
-###short description, install instructions, a contributors guide and a link to the license for your code.
 # iHydrate
   Welcome to Module One Final Project!
 
@@ -24,7 +23,7 @@
   5. Locate the run file and ensure its requiring the environment file.
   6. Finally run ruby bin/run.rb in your terminal and enjoy.
 
-## Contributors 
+## Contributors
   Tee Obidah a.k.a iheartobi (on github)  
   Maryam Joseph a.k.a. MaryJay787 (on github)
 
