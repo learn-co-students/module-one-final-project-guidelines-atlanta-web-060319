@@ -203,15 +203,17 @@ class CLI
                 \nThere are a lot of anecdotal reports about how water can
                 \nhelp hydrate the skin and reduce acne.\n\n")
       when choices[1]
-        water =  WaterIntake.find_by(id: @user.id)
+        water =  WaterIntake.find_by(user_id: @user.id)
+        binding.pry
         track = water.tracker += 2
+        binding.pry
         water.save
         puts " You have Increased Your Water Intake By #{track}"
         puts @pastel.yellow("\nDid You Know:
                 \nThe brain and heart are composed of 73% water,
                 \nand the lungs are about 83% water.\n\n")
       when choices[2]
-        water =  WaterIntake.find_by(id: @user.id)
+        water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 3
         water.save
         puts "You have increased Your Water Intake By #{track}"
@@ -219,7 +221,7 @@ class CLI
                 \nAdult male needs about 12cups of water per day,
                  \nwhile an adult female needs about 9cups water per day.\n\n")
       when choices[3]
-        water =  WaterIntake.find_by(id: @user.id)
+        water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 4
         water.save
         puts " You have increased Your Water Intake By #{track}"
@@ -227,7 +229,7 @@ class CLI
               \nWater is a vital nutrient to the life of every cell, it acts
               \nas a first building material for the body.\n\n")
       when choices[4]
-        water =  WaterIntake.find_by(id: @user.id)
+        water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 5
         water.save
         puts " You have increased Your Water Intake By #{track}"
@@ -235,7 +237,7 @@ class CLI
               \nWater regulates our internal body temperature by
               \nsweating and respiration.\n\n")
       when choices[5]
-        water =  WaterIntake.find_by(id: @user.id)
+        water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 6
         water.save
         puts " You have increased Your Water Intake By #{track}"
@@ -243,7 +245,7 @@ class CLI
               \nThe carbohydrates and proteins that our bodies use as
               \nfood are metabolized and transported by water in the bloodstream.\n\n")
       when choices[6]
-        water =  WaterIntake.find_by(id: @user.id)
+        water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 7
         water.save
         puts " You have increased Your Water Intake By #{track}"
@@ -251,7 +253,7 @@ class CLI
               \nWater acts as a shock absorber for
               \nthe brain, spinal cord, and fetus.\n\n")
       when choices[7]
-        water =  WaterIntake.find_by(id: @user.id)
+        water =  WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 8
         water.save
         puts " You have increased Your Water Intake By #{track}"
@@ -270,9 +272,6 @@ class CLI
   #See progress method should store water  intake amount from input goal
   `reset`
   @water = WaterIntake.find_by(user_id: @user.id)
-
-  @water = WaterIntake.find_by(id: @user.id)
-
   @c_track = Goal.find_by(id: @water.goal_id)
   puts "\n\nYour Goal is #{@c_track.cup}!!!\n\n"
   puts @pastel.magenta("\n\nYou've had a total #{@water.tracker} cups so far!\n\n")
