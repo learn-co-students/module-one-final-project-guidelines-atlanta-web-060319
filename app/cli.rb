@@ -40,7 +40,8 @@ class CLI
       when choices[4]
         delete_account
       when choices[5]
-        exit
+        puts "\n\nThank You for Using iHydrate, See You Soon.\n\n"
+        exit 
       else
         exit
     end
@@ -270,14 +271,21 @@ class CLI
 
   def see_progress
   #See progress method should store water  intake amount from input goal
+  #must have taken quiz before user can see progress
   `reset`
-  @water = WaterIntake.find_by(user_id: @user.id)
-  @c_track = Goal.find_by(id: @water.goal_id)
+
+  if @water = WaterIntake.find_by(user_id: @user.id)
+    @c_track = Goal.find_by(id: @water.goal_id)
   puts "\n\nYour Goal is #{@c_track.cup}!!!\n\n"
   puts @pastel.magenta("\n\nYou've had a total #{@water.tracker} cups so far!\n\n")
   main_menu
   sleep 1
   `reset`
+  else 
+    puts "#{@user.name.capitalize} you have to take our quiz before we can track your progress."
+    sleep 3
+    take_quiz
+  end
   end
 
   def update_profile
