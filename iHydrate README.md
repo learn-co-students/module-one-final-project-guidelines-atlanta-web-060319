@@ -24,7 +24,11 @@
   5. Locate the run file and ensure its requiring the environment file.
   6. Finally run ruby bin/run.rb in your terminal and enjoy.
 
+<<<<<<< HEAD
 ## Contributors
+=======
+## Contributors 
+>>>>>>> fixing-bugs
   Tee Obidah a.k.a iheartobi (on github)  
   Maryam Joseph a.k.a. MaryJay787 (on github)
 

@@ -25,7 +25,7 @@ class CLI
   end
   `reset`
   def main_menu
-    choices = ["Take Quiz", "Input WaterIntake", "See Progress", "Update Profile", "Delete Account", "Exit"]
+    choices = ["Take Our Quiz To Set Your Goal!", "Input WaterIntake", "See Progress", "Update Profile", "Delete Account", "Exit"]
     to_do = @prompt.select("Take Your Pick?", choices)
 
     case to_do
@@ -60,7 +60,7 @@ class CLI
     puts @pastel.cyan("\n1. #{@user.name.capitalize} How much water do you currently drink in one day?\n\n")
     choices = ["One Cup Daily", "Three Cups Daily", "I'm Basically a Mermaid/Man!!"]
     amount = @prompt.select("Select Amount?", choices)
-    # binding.pry
+
     case amount
       when choices[0]
         puts @pastel.red("\n\n#{@user.name.capitalize}! Your body is on the verge of collapsing from dehydration!!\n\n")
@@ -195,7 +195,7 @@ class CLI
     choices = ["One Cup", "Two Cups", "Three Cups", "Four Cups", "Five Cups", "Six Cups", "Seven Cups", "Eight Cups"]
     cups = @prompt.select("Select Your Amount?", choices)
     case cups
-    when choices[0]
+      when choices[0]
         water = WaterIntake.find_by(user_id: @user.id)
         track = water.tracker += 1
         water.save
@@ -205,9 +205,7 @@ class CLI
                 \nhelp hydrate the skin and reduce acne.\n\n")
       when choices[1]
         water =  WaterIntake.find_by(user_id: @user.id)
-        binding.pry
         track = water.tracker += 2
-        binding.pry
         water.save
         puts " You have Increased Your Water Intake By #{track}"
         puts @pastel.yellow("\nDid You Know:
@@ -293,9 +291,9 @@ class CLI
     `reset`
      puts "\n\nWhat Would you Like to Update\n\n"
     options = ["Change Name", "Change Spirit Animal", "Change Age"]
-    c = @prompt.select("Choose One!", options)
+    update = @prompt.select("Choose One!", options)
        `reset`
-    case c
+    case update
       when  options[0]
         puts "\n\nWhat is your new name?\n\n"
         name =  gets.chomp
