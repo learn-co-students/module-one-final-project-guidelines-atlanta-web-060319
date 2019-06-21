@@ -115,15 +115,17 @@ class CLI
                 @user = User.find_or_create_by(user_name: name)
                 email
                 sleep 4
-                menu_after_login
     		else
     			puts "Welcome, #{name}!"
                 @user = User.find_or_create_by(user_name: name)
                 email
                 sleep 4
-                menu_after_login_new_user
     		end
-			#things to do after login: build sandwich, edit username or email and delete user
+			if @user.orders.length == 0
+                menu_after_login_limit
+            else
+                menu_after_login
+            end
 		end
 		#-------------------------
 
@@ -141,7 +143,7 @@ class CLI
 		
         #-------------------------
         #After-Login Menu Section
-        def menu_after_login_new_user
+        def menu_after_login_limit
             `reset`
             al_options = ["Build a Sandwich", "Exit"]
             al_selection = @prompt.enum_select("Please select one.", al_options)
