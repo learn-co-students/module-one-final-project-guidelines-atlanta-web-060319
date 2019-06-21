@@ -2,6 +2,7 @@ require "pry"
 class CLI
     `reset`
   def run
+    @pid = fork{ exec 'afplay', "lib/music/meditation.mp3" }
     @user = nil
     @prompt = TTY::Prompt.new
     @pastel = Pastel.new
@@ -41,7 +42,7 @@ class CLI
         delete_account
       when choices[5]
         puts "\n\nThank You for Using iHydrate, See You Soon.\n\n"
-        exit 
+        exit
       else
         exit
     end
@@ -279,7 +280,7 @@ class CLI
   main_menu
   sleep 1
   `reset`
-  else 
+  else
     puts "#{@user.name.capitalize} you have to take our quiz before we can track your progress."
     sleep 3
     take_quiz
