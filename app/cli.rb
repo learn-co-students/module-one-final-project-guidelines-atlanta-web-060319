@@ -33,21 +33,23 @@ class CLI
             theme = fork{ exec 'afplay', "music/starWars-mainTitle.mp3"} 
             puts "Episode 20 Chewbecca's Sandwiches"
             puts "\n\n"
-            sleep 2
+            sleep 1.77
             puts "It's a great time in the Universe......."
-            sleep 2 
+            sleep 1.77
             puts "It's a dark time for Pepperoni!!!"
-            sleep 2 
+            sleep 1.77
             puts "Darth Kaeland's hunger for Pepperoni has"
-            sleep 2 
+            sleep 1.77
             puts "caused a disturbance in the Force."
-            sleep 2 
+            sleep 1.77
             puts "Will Gee continues to smuggle vital roast beef."
-            sleep 2 
+            sleep 1.77
+            puts "General Sydney disappeared after the ML War."
+            sleep 1.77
             puts "Only Ham Sandwiches can restore the balance."
-            sleep 2
+            sleep 1.77
             puts "Help us, Master Brit, you are our only hope."
-            sleep 2 
+            sleep 1.77
         end 
 			
 		#-------------------------
