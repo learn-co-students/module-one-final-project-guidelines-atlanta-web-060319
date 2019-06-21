@@ -13,4 +13,4 @@ Install:
 
 Contributors(latest version contributed):
 1. Reina Ewing (1.0 final)
-2. Robert Chen (1.0 final)
+2. Robert Chen (1.1)

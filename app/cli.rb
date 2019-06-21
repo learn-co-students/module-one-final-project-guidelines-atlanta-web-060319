@@ -8,6 +8,7 @@ class CLI
             User.all.find_by(user_name: "Reina Ewing").user_name => User.all.find_by(user_name: "Reina Ewing").email
         }
 
+        `reset`
         intro
 
     	while true 

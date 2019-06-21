@@ -7,6 +7,11 @@ class Order < ActiveRecord::Base
 	 		order.sandwich_id
 	 	end
 
+	 	if sandwich_id_array.length == 0
+	 		puts "No one has made any sandwiches yet."
+	 		return
+	 	end
+
 	 	sandwich_count_array = []
 	 	sandwich_id_array.uniq.each do |uniq_sandwich_id|
 	 		sandwich_count_array.push([Sandwich.find_by(id: uniq_sandwich_id).name, sandwich_id_array.count(uniq_sandwich_id)])
