@@ -2,4 +2,6 @@ require_relative '../config/environment'
 
 
 
-puts "HELLO WORLD"
+10.times do
+    puts "hello world"
+end
